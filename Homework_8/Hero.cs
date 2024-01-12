@@ -30,6 +30,5 @@ namespace Homework_8
             Properties.Health -= lightAbility;
             name.Properties.Health += lightAbility;
         }
-
     }
 }
