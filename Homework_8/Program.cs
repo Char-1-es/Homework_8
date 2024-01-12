@@ -1,4 +1,5 @@
 ﻿using Homework_8.Exceptions;
+using System.Transactions;
 
 namespace Homework_8
 {
@@ -70,77 +71,35 @@ namespace Homework_8
                     }
                 };
 
-                Console.WriteLine("Welcome, to Arkham City!");
-                Console.WriteLine("Choose your team:");
-                Console.WriteLine($"Heroes : {Batman.Name}, {Catwoman.Name}, {Gordon.Name} (Type H)");
-                Console.WriteLine($"Villains : {Joker.Name}, {Penguin.Name}, {Riddler.Name} (Type V)");
+                Console.WriteLine("Initial health score of villains:");
+                Console.WriteLine($"Joker: {Joker.Properties.Health}, Penguin: {Penguin.Properties.Health}, Riddler: {Riddler.Properties.Health} ");
+                Console.WriteLine("");
+                Console.WriteLine("Initial health score of heroes:");
+                Console.WriteLine($"Batman: {Batman.Properties.Health}, Catwoman: {Catwoman.Properties.Health}, Gordon: {Gordon.Properties.Health} ");
 
-                char choice = char.Parse(Console.ReadLine()!);
+                Console.WriteLine("-----------------------------------------");
+                Batman.AttackOnVilan(Joker);
+                Catwoman.AttackOnVilan(Penguin);
+                Gordon.AttackOnVilan(Riddler);
 
-                if (choice == 'H')
-                {
-                    Console.WriteLine($"Health levels of your team -- Batman: {Batman.Properties.Health}, Catwoman: {Catwoman.Properties.Health}, Gordon: {Gordon.Properties.Health}");
-                }
-                else if (choice == 'V')
-                {
-                    Console.WriteLine($"Health levels of your opponent's team -- Joker: {Joker.Properties.Health}, Penguin: {Penguin.Properties.Health}, Riddler: {Riddler.Properties.Health}");
-                }
-                Console.WriteLine("Type A to start attack");
+                Joker.AttackOnHero(Batman);
+                Penguin.AttackOnHero(Catwoman);
+                Riddler.AttackOnHero(Gordon);
 
-                char attack = char.Parse(Console.ReadLine()!);
-                while (true)
-                {
-                    if (attack == 'A')
-                    {
-                        Batman.AttackOnVilan(Joker);
-                        Catwoman.AttackOnVilan(Penguin);
-                        Gordon.AttackOnVilan(Riddler);
-                        Gordon.AttackOnVilan(Joker);
+                Console.WriteLine("Health score of villains after the war:");
+                Console.WriteLine($"Joker: {Joker.Properties.Health}, Penguin: {Penguin.Properties.Health}, Riddler: {Riddler.Properties.Health} ");
+                Console.WriteLine("");
+                Console.WriteLine("Health score of heroes after the war:");
+                Console.WriteLine($"Batman: {Batman.Properties.Health}, Catwoman: {Catwoman.Properties.Health}, Gordon: {Gordon.Properties.Health} ");
+                Console.WriteLine("-----------------------------------------");
 
-                        Joker.AttackOnHero(Batman);
-                        Penguin.AttackOnHero(Batman);
-                        Penguin.AttackOnHero(Catwoman);
-                        Riddler.AttackOnHero(Gordon);
+                Batman.Heal(Catwoman);
+                Catwoman.Heal(Gordon);
+                Gordon.Heal(Batman);
 
-                        Console.WriteLine($"Health levels of your team -- Batman: {Batman.Properties.Health}, Catwoman: {Catwoman.Properties.Health}, Gordon: {Gordon.Properties.Health}");
-                        Console.WriteLine($"Health levels of your opponent's team -- Batman: {Batman.Properties.Health}, Catwoman: {Catwoman.Properties.Health}, Gordon: {Gordon.Properties.Health}");
-                        Console.WriteLine("------------------");
-                    }
-                }
-                
-                //if (choice == 'H')
-                //    {
-                //        Console.WriteLine("Type + to heal or A to attack again");
-                //        if (choice == '+')
-                //        {
-                //            Console.WriteLine("Choose, who do you want to heal: Type b for batman, c for catwoman, g for gordon");
-                //            char healer = char.Parse(Console.ReadLine()!);
-                //            if (healer == 'b')
-                //            {
-                //                Catwoman.Heal(Batman);
-                //            }
-                //            else if (healer == 'c')
-                //            {
-                //                Batman.Heal(Catwoman);
-                //            }
-                //            else if (healer == 'g')
-                //            {
-                //                Batman.Heal(Gordon);
-                //            }
-                //        }
-                //        else if (choice == 'A')
-                //        {
-                //            Batman.AttackOnVilan(Joker);
-                //            Catwoman.AttackOnVilan(Penguin);
-                //            Gordon.AttackOnVilan(Riddler);
-                //            Gordon.AttackOnVilan(Joker);
+                Console.WriteLine("Health score of heroes after the healing:");
+                Console.WriteLine($"Batman: {Batman.Properties.Health}, Catwoman: {Catwoman.Properties.Health}, Gordon: {Gordon.Properties.Health} ");
 
-                //            Joker.AttackOnHero(Batman);
-                //            Penguin.AttackOnHero(Batman);
-                //            Penguin.AttackOnHero(Catwoman);
-                //            Riddler.AttackOnHero(Gordon);
-                //        }
-                //    }
             }
             catch (Exception ex)
             {
